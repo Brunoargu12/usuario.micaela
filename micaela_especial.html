@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surpresa Especial</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      text-align: center;
+      z-index: 10;
+    }
+
+    .message h1 {
+      color: #b03060;
+      font-size: 2.5em;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 15px;
+    }
+
+    .heart, .flower, .capybara {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-size: cover;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -60px;
+        opacity: 1;
+      }
+      100% {
+        bottom: 110%;
+        opacity: 0;
+      }
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 1.2em;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="login">
+    <p>Digite seu nome para continuar:</p>
+    <input type="text" id="nameInput" placeholder="Seu nome" />
+    <button onclick="checkName()">Entrar</button>
+    <p class="error" id="errorMsg" style="display:none;">Nome incorreto 😢</p>
+  </div>
+
+  <div class="message hidden" id="successMsg">
+    <h1>Continue sendo essa pessoa maravilhosa que você é 💖🌸🦫</h1>
+  </div>
+
+  <script>
+    function checkName() {
+      const name = document.getElementById("nameInput").value.trim().toLowerCase();
+      const correctName = "micaela";
+
+      if (name === correctName) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("successMsg").classList.remove("hidden");
+
+        const emojis = ['❤️','🌸','🦫'];
+        for (let i = 0; i < 40; i++) {
+          let item = document.createElement('div');
+          item.className = ['heart', 'flower', 'capybara'][Math.floor(Math.random()*3)];
+          item.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+          item.style.left = Math.random() * 100 + 'vw';
+          item.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          item.style.animationDuration = (Math.random() * 5 + 4) + 's';
+          item.style.position = "absolute";
+          item.style.zIndex = "0";
+          document.body.appendChild(item);
+        }
+      } else {
+        document.getElementById("errorMsg").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
